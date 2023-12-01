@@ -1,7 +1,7 @@
 import developmentPng from "../assets/development.png";
 import Card from "./HeroCard";
 
-export default function HeroSection() {
+export default function Second() {
   const cardData = Array.from({ length: 6 }, (_, index) => ({
     title: `Card ${index + 1}`,
     desc: `Card ${
@@ -10,7 +10,7 @@ export default function HeroSection() {
   }));
 
   return (
-    <section id="hero" className="mx-0">
+    <section id="second" className="mx-0">
       <div className="">
         <div className="flex flex-col sm:flex-row mb-12 items-center">
           <div className="flex flex-col sm:w-1/2 py-8 text-center items-center sm:items-start justify-center sm:justify-start my-auto order-1">
