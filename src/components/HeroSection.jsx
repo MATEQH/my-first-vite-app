@@ -15,7 +15,7 @@ export default function HeroSection() {
         <div className="flex flex-col sm:flex-row mb-12 items-center">
           <div className="flex flex-col sm:w-1/2 py-8 text-center items-center sm:items-start justify-center sm:justify-start my-auto order-1">
             <h1 className="text-3xl uppercase font-semibold mb-2">
-              Syrix Development
+              Company Name
             </h1>
             <p className="text-sm mb-3 max-w-xl sm:text-left whitespace-break-spaces">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod,
@@ -33,13 +33,6 @@ export default function HeroSection() {
               alt="development"
             />
           </div>
-        </div>
-      </div>
-      <div className="border rounded bg-gray-200">
-        <div className="flex flex-wrap justify-evenly py-12 gap-4 gap-y-12">
-          {cardData.map((card, index) => (
-            <Card key={index} title={card.title} desc={card.desc} />
-          ))}
         </div>
       </div>
     </section>

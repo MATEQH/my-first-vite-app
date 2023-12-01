@@ -5,14 +5,14 @@ import { MdInterpreterMode } from "react-icons/md";
 const navData = [
   {
     id: "hero",
-    title: "Home",
+    title: "Hero",
     to: "#hero",
     onlyMobile: false,
   },
   {
-    id: "second",
-    title: "About",
-    to: "#second",
+    id: "features",
+    title: "Features",
+    to: "#features",
     onlyMobile: false,
   },
   {
@@ -90,7 +90,7 @@ export default function Navbar() {
         </div>
       </nav>
       <div
-        className={`fixed md:hidden left-0 top-0 py-4 w-full bg-gray-200 bg-opacity-90 transform transition-transform duration-1000 ease-in-out ${
+        className={`fixed md:hidden left-0 top-0 py-4 w-full bg-gray-200 bg-opacity-90 transform transition-transform duration-500 ease-in-out ${
           isOpen ? "translate-y-14" : "-translate-y-full"
         } border-y-2 border-white -z-20`}
       >
