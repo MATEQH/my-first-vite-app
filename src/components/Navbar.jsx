@@ -16,8 +16,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuClass = clsx({
-    "z-10 bg-gray-200 sm:bg-transparent transition-all duration-1000 left-0 w-full absolute sm:static top-16 py-4 sm:py-auto pl-2 pl-auto flex sm:flex-row flex-col sm:items-center gap-8 sm:gap-6": true,
-    "top-16": isOpen,
+    "z-10 bg-gray-200 sm:bg-transparent transition-all duration-500 left-0 w-full absolute sm:static py-4 sm:py-auto pl-2 pl-auto flex sm:flex-row flex-col sm:items-center gap-8 sm:gap-6": true,
+    "top-10": isOpen,
     "top-[-48rem]": !isOpen,
   });
 
@@ -26,12 +26,12 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 bg-gray-200 h-16 z-30">
-      <nav className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 flex justify-between items-center text-gray-900">
+    <header className="sticky top-0 bg-gray-200 z-30">
+      <nav className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 flex justify-between items-center text-center text-gray-900">
         <div>
           <img
-            className="w-16 cursor-pointer"
-            src="https://cdn-icons-png.flaticon.com/512/5968/5968204.png"
+            className="w-12 cursor-pointer"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt="..."
           />
         </div>
