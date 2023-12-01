@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="mx-2 sm:mx-4 md:mx-12 lg:mx-32">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <HeroSection />
       </div>
     </>

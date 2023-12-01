@@ -1,36 +1,70 @@
-import { useState } from "react";
-import { MdMenu, MdClose } from "react-icons/md";
+import { Fragment, useState } from "react";
+import clsx from "clsx";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+
+const navigation = [
+  { name: "About", href: "#", current: true },
+  { name: "Features", href: "#", current: false },
+  { name: "Pricing", href: "#", current: false },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const menuClass = clsx({
+    "z-10 bg-gray-200 sm:bg-transparent transition-all duration-1000 left-0 w-full absolute sm:static top-16 py-4 sm:py-auto pl-2 pl-auto flex sm:flex-row flex-col sm:items-center gap-8 sm:gap-6": true,
+    "top-16": isOpen,
+    "top-[-48rem]": !isOpen,
+  });
+
+  function toggleMenu() {
+    setIsOpen(!isOpen);
+  }
+
   return (
-    <header className="h-12 sticky top-0 border flex items-center bg-gray-200 px-2 sm:px-2 md:px-12 lg:px-32">
-      <nav className="flex items-center text-2xl md:text-xl w-full uppercase justify-between">
-        <a className="font-semibold" href="">
-          LOGO
-        </a>
-        <ul className="hidden md:flex gap-x-4">
-          <li>
-            <a href="">About</a>
-          </li>
-          <li>
-            <a href="">Features</a>
-          </li>
-          <li>
-            <a href="">Pricing</a>
-          </li>
-        </ul>
-        <div className="flex gap-x-2 items-center">
-          <button className="hidden sm:block border px-4 py-1 text-white rounded bg-indigo-600">
-            <a href="">PANEL</a>
+    <header className="sticky top-0 bg-gray-200 h-16 z-30">
+      <nav className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 flex justify-between items-center text-gray-900">
+        <div>
+          <img
+            className="w-16 cursor-pointer"
+            src="https://cdn-icons-png.flaticon.com/512/5968/5968204.png"
+            alt="..."
+          />
+        </div>
+        <div className="flex flex-col sm:flex-row">
+          <ul className={menuClass}>
+            <li>
+              <a className="hover:text-gray-500" href="">
+                Home
+              </a>
+            </li>
+            <li>
+              <a className="hover:text-gray-500" href="">
+                About
+              </a>
+            </li>
+            <li>
+              <a className="hover:text-gray-500" href="">
+                Pricing
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="flex items-center gap-4">
+          <button className="hidden sm:block bg-indigo-600 hover:bg-indigo-400 text-white px-5 py-2 rounded-md">
+            Dashboard
           </button>
-          <span
-            className="block md:hidden border px-2 py-1"
-            onClick={(e) => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <MdClose size={36} /> : <MdMenu size={36} />}
-          </span>
+          <div className="sm:hidden" onClick={(e) => toggleMenu()}>
+            {isOpen ? (
+              <XMarkIcon className="w-8 h-8" />
+            ) : (
+              <Bars3Icon className="w-8 h-8" />
+            )}
+          </div>
         </div>
       </nav>
     </header>
