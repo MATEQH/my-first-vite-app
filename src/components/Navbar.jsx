@@ -1,6 +1,5 @@
-import { Fragment, useState, useEffect } from "react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { MdInterpreterMode } from "react-icons/md";
+import { useState, useEffect, useRef } from "react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navData = [
   {
@@ -28,56 +27,80 @@ const navData = [
     onlyMobile: true,
   },
 ];
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [scrollY, setScrollY] = useState(0);
+  const sectionRefs = useRef([]);
 
   function toggleMenu() {
     setIsOpen(!isOpen);
   }
 
+  const handleScroll = () => {
+    setScrollY(window.scrollY);
+
+    // Find the active section based on scroll position
+    let currentSection = "";
+    for (let i = sectionRefs.current.length - 1; i >= 0; i--) {
+      const section = sectionRefs.current[i];
+      if (section.offsetTop <= scrollY + 100) {
+        currentSection = section.id;
+        break;
+      }
+    }
+
+    setActiveSection(currentSection);
+  };
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          console.log(entry.target.id);
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    handleScroll();
 
-    // Állítsd be az observer-t minden szakaszra az oldalon
-    document.querySelectorAll("section").forEach((section) => {
-      observer.observe(section);
-    });
+    // Attach scroll event listener
+    window.addEventListener("scroll", handleScroll);
 
+    // Cleanup: remove event listener
     return () => {
-      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
+  useEffect(() => {
+    // Store section refs in the array
+    sectionRefs.current = Array.from(document.querySelectorAll("section"));
+
+    handleScroll();
+  }, []);
+
   return (
-    <header className="sticky w-full top-0 left-0 bg-gray-200 z-30">
-      <nav className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 h-14 flex items-center justify-between bg-gray-200">
+    <header
+      className={`sticky w-full top-0 left-0 z-30 bg-gray-200 ${
+        scrollY > 150 ? "md:bg-gray-200" : "md:bg-transparent"
+      }`}
+    >
+      <nav
+        className={`mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 h-16 flex items-center justify-between`}
+      >
         <a className="text-3xl font-semibold" href="">
           LOGO
         </a>
-        <div className="w-full md:w-fit">
+        <div className="w-full md:w-fit text-xl">
           <div className="hidden md:flex gap-4 items-center">
             {navData.map((item, index) => (
-              <a
-                className={`${
+              <span
+                className={`cursor-pointer ${
                   (item.id === "dashboard" || activeSection === item.id) &&
                   "py-1 px-2 rounded bg-indigo-600 text-white"
                 }`}
                 key={item.id}
-                href={item.to}
+                onClick={() => {
+                  const section = document.getElementById(item.id);
+                  if (section) section.scrollIntoView({ behavior: "smooth" });
+                }}
               >
                 {item.title}
-              </a>
+              </span>
             ))}
           </div>
         </div>
@@ -91,18 +114,20 @@ export default function Navbar() {
       </nav>
       <div
         className={`fixed md:hidden left-0 top-0 py-4 w-full bg-gray-200 bg-opacity-90 transform transition-transform duration-500 ease-in-out ${
-          isOpen ? "translate-y-14" : "-translate-y-full"
+          isOpen ? "translate-y-16" : "-translate-y-full"
         } border-y-2 border-white -z-20`}
       >
         <div className="flex flex-col gap-4 items-center text-2xl">
           {navData.map((item, index) => (
             <a
-              className={`${
+              className={`cursor-pointer ${
                 (item.id === "dashboard" || activeSection === item.id) &&
                 "py-1 px-2 rounded bg-indigo-600 text-white"
               }`}
-              key={item.id}
-              href={item.to}
+              onClick={() => {
+                const section = document.getElementById(item.id);
+                if (section) section.scrollIntoView({ behavior: "smooth" });
+              }}
             >
               {item.title}
             </a>

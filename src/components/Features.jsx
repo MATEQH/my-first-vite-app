@@ -1,5 +1,5 @@
 import developmentPng from "../assets/development.png";
-import Card from "./HeroCard";
+import Card from "../components/HeroCard";
 
 export default function Features() {
   const cardData = Array.from({ length: 6 }, (_, index) => ({
